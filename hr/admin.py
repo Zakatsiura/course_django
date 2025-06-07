@@ -2,10 +2,16 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 
 from hr.models import (
+    Company,
     Department,
     Employee,
     Position,
 )
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return not Company.objects.exists()
 
 
 @admin.register(Department)
@@ -27,4 +33,5 @@ class PositionAdmin(admin.ModelAdmin):
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('username', 'position', 'hire_date',)
+    list_display = ('username', 'position', 'hire_date', 'phone_number')
+
