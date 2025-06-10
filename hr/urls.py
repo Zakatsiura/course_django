@@ -1,7 +1,8 @@
 from django.urls import path
 
 # from hr.views import generic_views as views
-from hr.views import class_views as views
+# from hr.views import class_views as views
+from hr import views
 
 urlpatterns = [
     path("employees/", views.EmployeeListView.as_view(), name="employee_list"),
