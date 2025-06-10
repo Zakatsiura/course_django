@@ -18,6 +18,9 @@ urlpatterns = [
         views.EmployeeDeleteView.as_view(),
         name="employee_delete",
     ),
+    
+    path("employees/<int:pk>/", views.EmployeeDetailView.as_view(), name="detail"),
+
 ]
 
 # from hr.views.function_views import (

@@ -80,3 +80,11 @@ class EmployeeDeleteView(UserPassesTestMixin, View):
 
     def test_func(self):
         return user_is_superadmin(self.request.user)
+    
+    
+class EmployeeDetailView(View):
+    def get(self, request, pk):
+        employee = get_object_or_404(Employee, pk=pk)
+        context = {"employee": employee}
+        return render(request, "detail.html", context)
+    
