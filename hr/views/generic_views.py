@@ -30,7 +30,8 @@ class EmployeeListView(ListView):
             queryset = queryset.filter(
                 Q(first_name__icontains=search)
                 | Q(last_name__icontains=search)
-                | Q(position__title__icontains=search),
+                | Q(position__title__icontains=search)
+                | Q(email__icontains=search)
             )
         return queryset
 
