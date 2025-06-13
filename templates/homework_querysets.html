@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Homework Querysets{% endblock title %}
+
+{% block content %}
+<h1 class="mb-4">Django Query Results</h1>
+
+<h3>1. Departments with Managers (alphabetical order)</h3>
+<ul class="list-group mb-4">
+    {% for dept in departments_with_managers %}
+        <li class="list-group-item">{{ dept.name }}</li>
+    {% empty %}
+        <li class="list-group-item">No departments</li>
+    {% endfor %}
+</ul>
+
+<h3>2. Total Number of Active Positions</h3>
+<p class="lead"><strong>{{ total_active_positions }}</strong></p>
+
+<h3>3. Active Positions or Those in HR Department</h3>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Title</th>
+            <th>Department</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pos in active_or_hr_positions %}
+        <tr>
+            <td>{{ pos.title }}</td>
+            <td>{{ pos.department.name }}</td>
+            <td>
+                {% if pos.is_active %}
+                    <span class="text-success font-weight-bold">Yes</span>
+                {% else %}
+                    <span class="text-danger font-weight-bold">No</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3" class="text-center">No positions</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>4. Department Names with Managers</h3>
+<ul class="list-group mb-4">
+    {% for name in department_names_with_managers %}
+        <li class="list-group-item">{{ name }}</li>
+    {% empty %}
+        <li class="list-group-item">No departments</li>
+    {% endfor %}
+</ul>
+
+<h3>5. All Positions (Title and Active Status)</h3>
+<table class="table table-hover table-sm">
+    <thead class="thead-light">
+        <tr>
+            <th>Title</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pos in positions_titles_and_activity %}
+        <tr>
+            <td>{{ pos.title }}</td>
+            <td>
+                {% if pos.is_active %}
+                    <span class="text-success">Yes</span>
+                {% else %}
+                    <span class="text-danger">No</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2" class="text-center">No positions</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
