@@ -11,6 +11,12 @@ from django.views import View
 from hr.forms import EmployeeForm
 from hr.models import Employee
 
+from django.shortcuts import render
+
+from hr.forms import SalaryForm
+from hr.calculate_salary import CalculateMonthRateSalary
+from common.enums import WorkDayEnum
+
 
 def user_is_superadmin(user) -> bool:
     return user.is_superuser
@@ -78,3 +84,46 @@ class EmployeeDeleteView(UserPassesTestMixin, View):
 
     def test_func(self):
         return user_is_superadmin(self.request.user)
+
+
+class SalaryCalculatorView(View):
+    template_name = "salary_calculator.html"
+
+    def get(self, request):
+        form = SalaryForm()
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request):
+        form = SalaryForm(request.POST)
+        calculated_salary = None
+        detailed_salary = None
+
+        if form.is_valid():
+            employee = form.cleaned_data['employee']
+            days_dict = {
+                key: form.cleaned_data[key]
+                for key in form.cleaned_data
+                if key.startswith('day_')
+            }
+
+            calculator = CalculateMonthRateSalary(employee)
+            calculated_salary = calculator.calculate_salary(days_dict)
+
+            detailed_salary = {}
+            for day_key, work_type in days_dict.items():
+                daily_salary = 0
+                if work_type == WorkDayEnum.WORKING_DAY.value:
+                    daily_salary = calculator._daily_salary
+                elif work_type == WorkDayEnum.SICK_DAY.value:
+                    daily_salary = calculator._calculate_sick_daily_salary()
+                detailed_salary[day_key] = {
+                    "status": work_type,
+                    "salary": daily_salary,
+                }
+
+        context = {
+            "form": form,
+            "calculated_salary": calculated_salary,
+            "detailed_salary": detailed_salary,
+        }
+        return render(request, self.template_name, context)
