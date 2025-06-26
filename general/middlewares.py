@@ -1,9 +1,7 @@
 import logging
 
 from django.utils.deprecation import MiddlewareMixin
-
 from general.models import RequestStatistics
-
 
 logger = logging.getLogger("middlewares")
 
@@ -21,10 +19,14 @@ class RequestStatisticsMiddleware(MiddlewareMixin):
         return response
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if request.user.is_authenticated and not request.path.startswith(
-            "/hr_super_secret_admin/"
-        ):
+        if request.user.is_authenticated and not request.path.startswith("/hr_super_secret_admin/"):
             stats, created = RequestStatistics.objects.get_or_create(user=request.user)
-
             stats.requests += 1
             stats.save()
+
+    def process_exception(self, request, exception):
+        if request.user.is_authenticated and not request.path.startswith("/hr_super_secret_admin/"):
+            stats, created = RequestStatistics.objects.get_or_create(user=request.user)
+            stats.exception += 1
+            stats.save()
+            logger.exception(f"Exception for user {request.user}: {exception}")
