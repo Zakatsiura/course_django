@@ -1,95 +1,67 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-    <div class="container mt-5">
-
-        <ul class="list-group">
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Username :
-                </div>
-                <div>{{ object.username }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    First name :
-                </div>
-                <div>{{ object.first_name }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Last name :
-                </div>
-                <div>{{ object.last_name }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Birth day :
-                </div>
-                <div>{{ object.birth_date }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Email :
-                </div>
-                <div>{{ object.email }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Phone number :
-                </div>
-                <div>{{ object.phone_number }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-25">
-                    Is staff :
-                </div>
-                <input type="checkbox" value="" id="flexCheckChecked" disabled
-                       checked={{ object.is_staff }}>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Position :
-                </div>
-                <div>{{ object.position }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Position department :
-                </div>
-                <div>{{ object.position.department }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Hire day :
-                </div>
-                <div>{{ object.hire_date }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Data joined :
-                </div>
-                <div>{{ object.date_joined }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Job Description :
-                </div>
-                <div>{{ object.position.job_description }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-25">
-                    Is active :
-                </div>
-                <input type="checkbox" value="" id="flexCheckChecked" disabled
-                       checked={{ object.position.is_active }}>
-            </li>
-            <li class="pt-10">
-                {% if request.user.is_superuser %}
-                    <a href="{% url 'hr:employee_update' employee.pk %}" class="btn btn-primary">Update</a>
-                    <a href="{% url 'hr:employee_delete' employee.pk %}" class="btn btn-danger">Delete</a>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
+<div class="container mt-5">
+    <ul class="list-group">
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Username" %} :</div>
+            <div>{{ object.username }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "First name" %} :</div>
+            <div>{{ object.first_name }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Last name" %} :</div>
+            <div>{{ object.last_name }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Birth day" %} :</div>
+            <div>{{ object.birth_date }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Email" %} :</div>
+            <div>{{ object.email }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Phone number" %} :</div>
+            <div>{{ object.phone_number }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-25">{% trans "Is staff" %} :</div>
+            <input type="checkbox" value="" id="flexCheckChecked" disabled checked={{ object.is_staff }}>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Position" %} :</div>
+            <div>{{ object.position }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Position department" %} :</div>
+            <div>{{ object.position.department }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Hire day" %} :</div>
+            <div>{{ object.hire_date }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Date joined" %} :</div>
+            <div>{{ object.date_joined }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-15">{% trans "Job Description" %} :</div>
+            <div>{{ object.position.job_description }}</div>
+        </li>
+        <li class="list-group-item d-flex">
+            <div class="mr-25">{% trans "Is active" %} :</div>
+            <input type="checkbox" value="" id="flexCheckChecked" disabled checked={{ object.position.is_active }}>
+        </li>
+        <li class="pt-10">
+            {% if request.user.is_superuser %}
+                <a href="{% url 'hr:employee_update' employee.pk %}" class="btn btn-primary">{% trans "Update" %}</a>
+                <a href="{% url 'hr:employee_delete' employee.pk %}" class="btn btn-danger">{% trans "Delete" %}</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
 {% endblock %}

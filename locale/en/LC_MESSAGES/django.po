@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 15:48+0300\n"
+"POT-Creation-Date: 2025-07-11 13:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,74 +18,133 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hr/models.py:33
+#: .\hr\models.py:35
 msgid "Title"
 msgstr ""
 
-#: hr/models.py:37
+#: .\hr\models.py:39 .\templates\employee_profile.html:52
 msgid "Job Description"
 msgstr ""
 
-#: templates/base.html:29
+#: .\templates\base.html:29
 msgid "Change Language"
 msgstr ""
 
-#: templates/employee_list.html:10
-msgid "Create New Employee"
+#: .\templates\employee_confirm_delete.html:6
+msgid "Confirm Delete"
 msgstr ""
 
-#: templates/employee_list.html:13 templates/home.html:16
-msgid "Salary Calculator"
+#: .\templates\employee_confirm_delete.html:7
+msgid "Are you sure you want to delete"
 msgstr ""
 
-#: templates/employee_list.html:32
-msgid "First Name"
-msgstr ""
-
-#: templates/employee_list.html:33
-msgid "Last Name"
-msgstr ""
-
-#: templates/employee_list.html:34
-msgid "Email"
-msgstr ""
-
-#: templates/employee_list.html:35
-msgid "Position"
-msgstr ""
-
-#: templates/employee_list.html:36
-msgid "Actions"
-msgstr ""
-
-#: templates/employee_list.html:48
-msgid "Update"
-msgstr ""
-
-#: templates/employee_list.html:49
+#: .\templates\employee_confirm_delete.html:10
+#: .\templates\employee_list.html:49 .\templates\employee_profile.html:62
 msgid "Delete"
 msgstr ""
 
-#: templates/employee_list.html:50
+#: .\templates\employee_confirm_delete.html:11
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\employee_form.html:9 .\templates\employee_profile.html:8
+msgid "Username"
+msgstr ""
+
+#: .\templates\employee_form.html:19 .\templates\employee_list.html:32
+msgid "First Name"
+msgstr ""
+
+#: .\templates\employee_form.html:29 .\templates\employee_list.html:33
+msgid "Last Name"
+msgstr ""
+
+#: .\templates\employee_form.html:39 .\templates\employee_list.html:34
+#: .\templates\employee_profile.html:24
+msgid "Email"
+msgstr ""
+
+#: .\templates\employee_form.html:49 .\templates\employee_list.html:35
+#: .\templates\employee_profile.html:36
+msgid "Position"
+msgstr ""
+
+#: .\templates\employee_form.html:65
+msgid "Save"
+msgstr ""
+
+#: .\templates\employee_list.html:10
+msgid "Create New Employee"
+msgstr ""
+
+#: .\templates\employee_list.html:13 .\templates\home.html:16
+msgid "Salary Calculator"
+msgstr ""
+
+#: .\templates\employee_list.html:36
+msgid "Actions"
+msgstr ""
+
+#: .\templates\employee_list.html:48 .\templates\employee_profile.html:61
+msgid "Update"
+msgstr ""
+
+#: .\templates\employee_list.html:50
 msgid "View"
 msgstr ""
 
-#: templates/home.html:5
+#: .\templates\employee_profile.html:12
+msgid "First name"
+msgstr ""
+
+#: .\templates\employee_profile.html:16
+msgid "Last name"
+msgstr ""
+
+#: .\templates\employee_profile.html:20
+msgid "Birth day"
+msgstr ""
+
+#: .\templates\employee_profile.html:28
+msgid "Phone number"
+msgstr ""
+
+#: .\templates\employee_profile.html:32
+msgid "Is staff"
+msgstr ""
+
+#: .\templates\employee_profile.html:40
+msgid "Position department"
+msgstr ""
+
+#: .\templates\employee_profile.html:44
+msgid "Hire day"
+msgstr ""
+
+#: .\templates\employee_profile.html:48
+msgid "Date joined"
+msgstr ""
+
+#: .\templates\employee_profile.html:56
+msgid "Is active"
+msgstr ""
+
+#: .\templates\home.html:5
 msgid "Home"
 msgstr ""
 
-#: templates/home.html:9
+#: .\templates\home.html:9
 msgid "Welcome!"
 msgstr ""
 
-#: templates/home.html:10
+#: .\templates\home.html:10
 msgid "This is a simple home page for the HR application."
 msgstr ""
 
-#: templates/home.html:12
+#: .\templates\home.html:12
 msgid "You can manage employees or calculate salaries from here."
 msgstr ""
 
-#: templates/home.html:15
+#: .\templates\home.html:15
 msgid "Employee List"
 msgstr ""

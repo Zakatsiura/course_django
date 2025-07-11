@@ -8,11 +8,9 @@ from hr.models import (
     Position,
 )
 
-
 @admin.register(Department)
-class DepartmentAdmin(admin.ModelAdmin):
+class DepartmentAdmin(TranslationAdmin):  # Заміна ModelAdmin на TranslationAdmin
     list_display = ('name', 'parent_department')
-
 
 @admin.register(Position)
 class PositionAdmin(TranslationAdmin):
@@ -24,7 +22,6 @@ class PositionAdmin(TranslationAdmin):
         except ValidationError as e:
             form.add_error(None, e)
             super().save_model(request, obj, form, change)
-
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):

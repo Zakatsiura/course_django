@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-5">
@@ -6,7 +7,7 @@
         {% csrf_token %}
 
         <div class="form-group">
-            <label for="{{ form.username.id_for_label }}">Username:</label>
+            <label for="{{ form.username.id_for_label }}">{% trans 'Username' %}:</label>
             <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" value="{{ form.username.value|default:'' }}">
             {% if form.username.errors %}
                 <div class="text-danger">
@@ -16,7 +17,7 @@
         </div>
 
         <div class="form-group">
-            <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+            <label for="{{ form.first_name.id_for_label }}">{% trans 'First Name' %}:</label>
             <input type="text" class="form-control" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}" value="{{ form.first_name.value|default:'' }}">
             {% if form.first_name.errors %}
                 <div class="text-danger">
@@ -26,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+            <label for="{{ form.last_name.id_for_label }}">{% trans 'Last Name' %}:</label>
             <input type="text" class="form-control" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}" value="{{ form.last_name.value|default:'' }}">
             {% if form.last_name.errors %}
                 <div class="text-danger">
@@ -36,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            <label for="{{ form.email.id_for_label }}">Email:</label>
+            <label for="{{ form.email.id_for_label }}">{% trans 'Email' %}:</label>
             <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" value="{{ form.email.value|default:'' }}">
             {% if form.email.errors %}
                 <div class="text-danger">
@@ -46,7 +47,7 @@
         </div>
 
         <div class="form-group">
-            <label for="{{ form.position.id_for_label }}">Position:</label>
+            <label for="{{ form.position.id_for_label }}">{% trans 'Position' %}:</label>
             <select class="form-control" id="{{ form.position.id_for_label }}" name="{{ form.position.name }}">
                 {% for choice in form.position.field.choices %}
                     <option value="{{ choice.0 }}" {% if form.position.value == choice.0 %} selected {% endif %}>
@@ -62,7 +63,7 @@
         </div>
 
         <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
         </div>
     </form>
 </div>
