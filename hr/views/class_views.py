@@ -1,12 +1,10 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
-from django.shortcuts import (
-    get_object_or_404,
-    redirect,
-    render,
-)
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from hr.forms import EmployeeForm
 from hr.models import Employee
@@ -16,6 +14,7 @@ def user_is_superadmin(user) -> bool:
     return user.is_superuser
 
 
+@method_decorator(cache_page(180), name='dispatch')
 class EmployeeListView(View):
     def get(self, request):
         search = request.GET.get('search', '')
@@ -23,7 +22,9 @@ class EmployeeListView(View):
 
         if search:
             employees = employees.filter(
-                Q(first_name__icontains=search) | Q(last_name__icontains=search) | Q(position__title__icontains=search),
+                Q(first_name__icontains=search) |
+                Q(last_name__icontains=search) |
+                Q(position__title__icontains=search)
             )
 
         context = {'employees': employees}
@@ -76,3 +77,10 @@ class EmployeeDeleteView(UserPassesTestMixin, View):
 
     def test_func(self):
         return user_is_superadmin(self.request.user)
+
+
+@method_decorator(cache_page(180), name='dispatch')
+class EmployeeProfileView(View):
+    def get(self, request, pk):
+        employee = get_object_or_404(Employee, pk=pk)
+        return render(request, 'employee_profile.html', {'employee': employee})

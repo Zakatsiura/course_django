@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.functional import cached_property
 from django.core.cache import cache, caches
-# from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy as _
 
 
@@ -12,8 +11,9 @@ class Company(models.Model):
     address = models.CharField(max_length=200)
     email = models.EmailField()
     tax_code = models.CharField(max_length=200)
+    logo = models.ImageField(upload_to='company_logos/', null=True, blank=True)
 
-    def __str(self):
+    def __str__(self):
         return self.name
 
     @cached_property
@@ -62,9 +62,23 @@ class Position(models.Model):
                     f"Manager already exists in the {self.department.name} department.",
                 )
         super(Position, self).save(*args, **kwargs)
+        cache.delete('total_position_count')  # очищення кешу при зміні
+
+    def delete(self, *args, **kwargs):
+        super(Position, self).delete(*args, **kwargs)
+        cache.delete('total_position_count')  # очищення кешу при видаленні
 
     def __str__(self):
         return self.title
+
+    @cached_property
+    def total_positions(self):
+        key = 'total_position_count'
+        total = cache.get(key)
+        if total is None:
+            total = Position.objects.count()
+            cache.set(key, total, 300)  # кеш на 5 хвилин
+        return total
 
 
 class Employee(AbstractUser):
@@ -92,7 +106,7 @@ class Employee(AbstractUser):
         caches['my_key'].clear()
         print(caches['my_key']._cache.keys())
         # On Redis
-        # cache.delete_pattern("patern_*")
+        # cache.delete_pattern("pattern_*")
 
         cache.delete(f'employee_{self.id}')
 

@@ -8,6 +8,24 @@ from hr.models import (
     Position,
 )
 
+from django.contrib import admin
+from django.utils.safestring import mark_safe
+from hr.models import Company
+
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    fields = ['logo']
+    readonly_fields = ['name', 'email', 'tax_code', 'logo_preview']
+
+    list_display = ('name', 'email', 'tax_code', 'logo_preview')
+
+    def logo_preview(self, obj):
+        if obj.logo:
+            return mark_safe(f'<img src="{obj.logo.url}" style="max-height: 100px;" />')
+        return "No logo"
+    logo_preview.short_description = "Logo"
+
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
