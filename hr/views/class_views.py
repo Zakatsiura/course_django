@@ -10,6 +10,7 @@ from django.views import View
 
 from hr.forms import EmployeeForm
 from hr.models import Employee
+from django.contrib import messages
 
 
 def user_is_superadmin(user) -> bool:
@@ -39,11 +40,14 @@ class EmployeeCreateView(UserPassesTestMixin, View):
         form = EmployeeForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Працівника успішно створено.')
             return redirect(reverse('hr:employee_list'))
+        messages.error(request, 'Помилка при створенні працівника.')
         return render(request, 'employee_form.html', {'form': form})
 
     def test_func(self):
         return user_is_superadmin(self.request.user)
+
 
 
 class EmployeeUpdateView(UserPassesTestMixin, View):
@@ -57,11 +61,14 @@ class EmployeeUpdateView(UserPassesTestMixin, View):
         form = EmployeeForm(request.POST, instance=employee)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Інформацію про працівника оновлено.')
             return redirect(reverse('hr:employee_list'))
+        messages.error(request, 'Помилка при оновленні працівника.')
         return render(request, 'employee_form.html', {'form': form})
 
     def test_func(self):
         return user_is_superadmin(self.request.user)
+
 
 
 class EmployeeDeleteView(UserPassesTestMixin, View):
