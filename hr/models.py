@@ -71,6 +71,13 @@ class Position(models.Model):
 class Employee(AbstractUser):
     hire_date = models.DateField(null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
+    department = models.ForeignKey(
+        'Department',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='employees'
+    )
     position = models.ForeignKey(
         'Position',
         on_delete=models.SET_NULL,
@@ -86,20 +93,12 @@ class Employee(AbstractUser):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
-        print(caches['my_key']._cache.keys())
-        print(cache._cache.keys())
-
-        caches['my_key'].clear()
-        print(caches['my_key']._cache.keys())
-        # On Redis
-        # cache.delete_pattern("patern_*")
-
         cache.delete(f'employee_{self.id}')
 
     def delete(self, *args, **kwargs):
         cache.delete(f'employee_{self.pk}')
         super().delete(*args, **kwargs)
+
 
 
 class MonthlySalary(models.Model):

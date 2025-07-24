@@ -3,7 +3,14 @@ from rest_framework import serializers
 from hr.models import (
     Employee,
     Position,
+    Department,
 )
+
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = '__all__'
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
