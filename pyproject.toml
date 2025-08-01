@@ -13,8 +13,8 @@ django-modeltranslation = "^0.18.11"
 pillow = "^10.3.0"
 pydantic = "^2.7.1"
 djangorestframework = "^3.15.1"
-drf-yasg = "^1.21.7"
 djangorestframework-simplejwt = "^5.3.1"
+drf-yasg = "^1.21.10"
 
 
 [build-system]
